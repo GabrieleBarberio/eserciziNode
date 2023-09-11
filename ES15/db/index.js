@@ -1,6 +1,6 @@
 const pgPromise = require("pg-promise");
 
-const db = pgPromise()("postgres://postgres:postgres@localhost:5432/lezioni");
+const db = pgPromise()("postgres://postgres:grinker@localhost:5432/lezioni");
 
 const setupDb = async () => {
   try {
