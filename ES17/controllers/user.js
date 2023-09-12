@@ -21,7 +21,7 @@ const signup = async (req, res) => {
     );
 
     if (user) {
-      return res.status(400).json({ message: "Username taken" });
+      return res.status(400).json({ msg: "Username taken" });
     }
 
     const cryptedPw = await bcrypt.hash(password, 12);
@@ -36,9 +36,9 @@ const signup = async (req, res) => {
     return res.status(200).json({ msg: "Signup successfully." });
   } catch (error) {
     if (error instanceof Joi.ValidationError) {
-      return res.status(500).json({ message: error.details[0].message });
+      return res.status(500).json({ msg: error.details[0].message });
     }
-    return res.status(500).json({ message: error });
+    return res.status(500).json({ msg: error });
   }
 };
 
