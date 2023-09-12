@@ -1,0 +1,14 @@
+const express = require("express");
+const app = express.Router();
+const auth = require("../../middleware/authorize");
+require("../../passport/passport");
+
+const { login, signup, logout } = require("../../controllers/users");
+
+app.post("/signup", signup);
+
+app.post("/login", login);
+
+app.get("/logout", auth, logout);
+
+module.exports = app;
