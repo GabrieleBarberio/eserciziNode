@@ -9,6 +9,4 @@ app.post("/signup", signup);
 
 app.post("/login", login);
 
-app.get("/logout", auth, logout);
-
 module.exports = app;
