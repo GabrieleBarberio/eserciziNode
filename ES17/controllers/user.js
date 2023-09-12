@@ -21,7 +21,7 @@ const signup = async (req, res) => {
     );
 
     if (user) {
-      return res.status(400).json({ message: "Username già in uso" });
+      return res.status(400).json({ message: "Username taken" });
     }
 
     const cryptedPw = await bcrypt.hash(password, 12);
@@ -33,9 +33,7 @@ const signup = async (req, res) => {
       data.password,
     ]);
 
-    return res
-      .status(200)
-      .json({ msg: "Signup successful. Now you can log in." });
+    return res.status(200).json({ msg: "Signup successfully." });
   } catch (error) {
     if (error instanceof Joi.ValidationError) {
       return res.status(500).json({ message: error.details[0].message });
@@ -59,17 +57,12 @@ const login = async (req, res) => {
     );
 
     if (!user) {
-      return res
-        .status(404)
-        .json({ message: "I dati inseriti non corrispondono" });
+      return res.status(404).json({ msg: "No match" });
     }
 
     const compare = await bcrypt.compare(password, user.password);
 
-    if (!compare)
-      return res
-        .status(400)
-        .json({ message: "I dati inseriti non corrispondono" });
+    if (!compare) return res.status(400).json({ msg: "No match" });
 
     const payload = {
       id: user.id,
@@ -86,9 +79,9 @@ const login = async (req, res) => {
     return res.status(200).json({ id, token, username });
   } catch (error) {
     if (error instanceof Joi.ValidationError) {
-      return res.status(500).json({ message: error.details[0].message });
+      return res.status(500).json({ msg: error.details[0].message });
     }
-    return res.status(500).json({ message: error });
+    return res.status(500).json({ msg: error });
   }
 };
 

@@ -6,5 +6,6 @@ const app = express.Router();
  */
 
 app.use("/users", require("./Routes/users"));
+app.use("/planets", require("./Routes/planets"));
 
 module.exports = app;
